@@ -40,9 +40,10 @@ public class MassegeHandOut {
                 serializer = ProtostuffUtils.deserializer(request.getDATA(), serializerModel.get(request.getId()).getClass());
             if(PlayerCache.playerMap.containsKey(channel))
                corePlayer = PlayerCache.playerMap.get(channel);
-            else if(request.getId()>1)
+            else if(request.getId()>1) {
                 corePlayer = new CorePlayer(channel);
-            else
+                PlayerCache.playerMap.put(channel,corePlayer);
+            } else
                 corePlayer = new CorePlayer(channel,null);
             logic.setId(request.getId());
             logic.setMsg(serializer);

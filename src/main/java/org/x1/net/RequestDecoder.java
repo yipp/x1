@@ -10,7 +10,7 @@ public class RequestDecoder extends ByteToMessageDecoder{
 	 * 数据包的基本长度：包头+id+数据长度
 	 * 每个协议都是�?个int类型的基本数据占4个字�?
 	 */
-	public static int BASE_LENGTH = 4+4+4;
+	public static int BASE_LENGTH = 4+2+2;
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
 	
