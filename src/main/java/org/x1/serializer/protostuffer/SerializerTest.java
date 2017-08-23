@@ -5,7 +5,7 @@ import org.yinet.s1.net.tcp.model.ResponseSerializer;
 /**
  * Created by CL-PC202 on 2017/7/3.
  */
-public class SerializerTest implements ResponseSerializer{
+public class SerializerTest implements ResponseSerializer {
     private String name;
     private String studentNo;
     private int age;
@@ -52,6 +52,7 @@ public class SerializerTest implements ResponseSerializer{
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
     }
+
     @Override
     public String toString() {
         return "SerializerTest{" +

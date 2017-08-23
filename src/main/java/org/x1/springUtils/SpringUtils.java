@@ -11,23 +11,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class SpringUtils {
     public static ApplicationContext ctx = null;
+
     static {
         ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
     }
-    public static <T> T getBean(final Class<T> clazz){
+
+    public static <T> T getBean(final Class<T> clazz) {
         try {
             T obj = ctx.getBean(clazz);
             return obj;
-        }catch (Exception e){
-            throw new RuntimeException("找不到Action_"+clazz.getName()+"这个脚本类");
+        } catch (Exception e) {
+            throw new RuntimeException("找不到Action_" + clazz.getName() + "这个脚本类");
         }
     }
-    public static <T> T getBean(final String beanName,Class<T> t){
+
+    public static <T> T getBean(final String beanName, Class<T> t) {
         try {
-            T obj = (T)ctx.getBean(beanName);
+            T obj = (T) ctx.getBean(beanName);
             return obj;
-        }catch (Exception e){
-            throw new RuntimeException("找不到Action_"+beanName+"这个脚本类");
+        } catch (Exception e) {
+            throw new RuntimeException("找不到Action_" + beanName + "这个脚本类");
         }
     }
 }

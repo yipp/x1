@@ -1,8 +1,10 @@
 package org.x1.serializer.excel;
+
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -13,40 +15,41 @@ public class ExcelUtils {
      *
      */
     private static Logger logger;
-    public static Map<String,Object> bean = new HashMap<>();
+    public static Map<String, Object> bean = new HashMap<>();
+
     static {
         logger = Logger.getLogger(ExcelUtils.class);
     }
 
     public static void init() {
-        ClassPathExcelContext("src/main/resources/excel/CoreBasic.xlsx","org.yinet.s1.dao.excel.CoreBasic");
+        ClassPathExcelContext("src/main/resources/excel/CoreBasic.xlsx", "org.yinet.s1.dao.excel.CoreBasic");
     }
 
     /**
      * 解析ecxel表
-     * */
-    private static void ClassPathExcelContext(String fileName,String clazzName){
+     */
+    private static void ClassPathExcelContext(String fileName, String clazzName) {
         List<List<String>> objs;//用于后面转对象使用
         objs = new ArrayList<List<String>>();
         Workbook book = null;
         FileInputStream fis = null;
         try {
-            logger.info("开始读取"+fileName+"文件的内容");
+            logger.info("开始读取" + fileName + "文件的内容");
             fis = new FileInputStream(fileName);//取到文件
             book = new XSSFWorkbook(fis);
             fis.close();//及时关闭流
-            logger.info("开始读取"+fileName+"工作谱的内容");
+            logger.info("开始读取" + fileName + "工作谱的内容");
             Sheet sheet = book.getSheetAt(0);//取到工作谱（每一页是一个工作谱）
             Iterator<Row> rows = sheet.iterator();
             List<String> obj = null;
             int i = 0;
-            logger.info("开始读取"+fileName+"行的内容");
-            while (rows.hasNext()){
+            logger.info("开始读取" + fileName + "行的内容");
+            while (rows.hasNext()) {
                 Row row = rows.next();
                 Iterator<Cell> cells = row.iterator();
                 obj = new ArrayList<String>();
-                logger.info("开始读取"+fileName+"列的内容");
-                while (cells.hasNext()){
+                logger.info("开始读取" + fileName + "列的内容");
+                while (cells.hasNext()) {
                     Cell cell = cells.next();
                     switch (cell.getCellType()) {   //根据cell中的类型来输出数据
                         case HSSFCell.CELL_TYPE_NUMERIC:
@@ -57,36 +60,38 @@ public class ExcelUtils {
                 }
                 objs.add(obj);
             }
-            serializerFile(objs,clazzName);
-        }catch (Exception e){
+            serializerFile(objs, clazzName);
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 book.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 logger.error(e);
             }
         }
     }
-    private static void serializerFile(List<List<String>> file,String clazzName){
-        List<Map<String,String>> objMap = new ArrayList<Map<String, String>>();
-        Map<String,String> objs;
+
+    private static void serializerFile(List<List<String>> file, String clazzName) {
+        List<Map<String, String>> objMap = new ArrayList<Map<String, String>>();
+        Map<String, String> objs;
         logger.info("开始转换成map");
-        for (int i = 1;i<file.size();i++){
+        for (int i = 1; i < file.size(); i++) {
             objs = new HashMap<String, String>();
-            for (int j = 0;j<file.get(i).size();j++){
-                objs.put(file.get(0).get(j),file.get(i).get(j));
+            for (int j = 0; j < file.get(i).size(); j++) {
+                objs.put(file.get(0).get(j), file.get(i).get(j));
             }
             objMap.add(objs);
         }
         System.err.println(objMap);
-        serializerObj(objMap,clazzName);
+        serializerObj(objMap, clazzName);
     }
-    private static void serializerObj(List<Map<String,String>> objs,String clazzName){
+
+    private static void serializerObj(List<Map<String, String>> objs, String clazzName) {
         Class clazz = null;
         Object beanObj;
         String[] str = clazzName.split("\\.");
-        String beanName = str[str.length-1];
+        String beanName = str[str.length - 1];
         System.err.println(beanName);
         try {
             logger.info("反射");
@@ -94,7 +99,7 @@ public class ExcelUtils {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             logger.error(e);
-            throw new RuntimeException("-------找不到-------"+clazzName);
+            throw new RuntimeException("-------找不到-------" + clazzName);
         }
 
         try {
@@ -102,9 +107,9 @@ public class ExcelUtils {
             beanObj = clazz.newInstance();
         } catch (Exception e) {
             logger.error(e);
-            throw new RuntimeException(""+clazzName);
+            throw new RuntimeException("" + clazzName);
         }
-        for (int i = 0;i<objs.size();i++) {
+        for (int i = 0; i < objs.size(); i++) {
             for (Map.Entry<String, String> entry : objs.get(i).entrySet()) {
                 try {
                     Object value = null;
@@ -126,10 +131,11 @@ public class ExcelUtils {
                     logger.error(e);
                 }
             }
-            bean.put(beanName+i,beanObj);
+            bean.put(beanName + i, beanObj);
         }
         System.err.println(bean);
     }
+
     private static Method writeMethod(Object beanObj, String name) {
         //得到属性的set方法用于注入
         Method m;
@@ -144,18 +150,19 @@ public class ExcelUtils {
             ff.setAccessible(true);
         } catch (Exception e) {
             logger.error(e);
-            throw new RuntimeException(beanObj.getClass()+"没有"+name+"这个属性");
+            throw new RuntimeException(beanObj.getClass() + "没有" + name + "这个属性");
         }
         try {
-            m = beanObj.getClass().getMethod(methodName,ff.getType());
+            m = beanObj.getClass().getMethod(methodName, ff.getType());
         } catch (Exception e) {
             logger.error(e);
-            throw new RuntimeException(beanObj.getClass()+"没有"+methodName+"这个方法");
+            throw new RuntimeException(beanObj.getClass() + "没有" + methodName + "这个方法");
         }
         return m;
     }
-    public static Object getExcelBean(String beanName){
-        if(bean.containsKey(beanName)) return bean.get(beanName);
+
+    public static Object getExcelBean(String beanName) {
+        if (bean.containsKey(beanName)) return bean.get(beanName);
         return null;
     }
 }  

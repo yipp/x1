@@ -8,7 +8,7 @@ import java.io.*;
  * 描述：java对象深度拷贝
  */
 public class CloneUtils {
-    public static <T extends Serializable> T clone(T t){
+    public static <T extends Serializable> T clone(T t) {
         T cloneObj = null;
         ByteArrayOutputStream out = null;
         ObjectOutputStream objs = null;
@@ -25,13 +25,13 @@ public class CloneUtils {
             ois = new ObjectInputStream(ios);
             cloneObj = (T) ois.readObject();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if(ois == null)
+                if (ois == null)
                     ois.close();
-                if(objs == null)
+                if (objs == null)
                     objs.close();
             } catch (IOException e) {
                 e.printStackTrace();

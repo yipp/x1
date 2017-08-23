@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by CL-PC202 on 2017/7/3.
  */
-public class ProtostuffUtils{
+public class ProtostuffUtils {
     private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<Class<?>, Schema<?>>();
 
     private static Objenesis objenesis = new ObjenesisStd(true);

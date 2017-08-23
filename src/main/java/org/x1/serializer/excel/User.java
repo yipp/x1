@@ -1,13 +1,12 @@
 package org.x1.serializer.excel;
 
-public class User
-{  
-  
-   private String name;
-   private int age;
-   private int limit;
-   private int grade;
-   private int gold;
+public class User {
+
+    private String name;
+    private int age;
+    private int limit;
+    private int grade;
+    private int gold;
 
     public String getName() {
         return name;
