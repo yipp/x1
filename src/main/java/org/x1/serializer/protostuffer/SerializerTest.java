@@ -1,11 +1,12 @@
 package org.x1.serializer.protostuffer;
 
-import org.yinet.s1.net.tcp.model.ResponseSerializer;
+
+import org.x1.net.model.ISerializer;
 
 /**
  * Created by CL-PC202 on 2017/7/3.
  */
-public class SerializerTest implements ResponseSerializer {
+public class SerializerTest implements ISerializer {
     private String name;
     private String studentNo;
     private int age;

@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
-    <context:component-scan base-package="org.yinet.s1"/>
+    <context:component-scan base-package="org.x1"/>
     <!--导入资源文件-->
     <context:property-placeholder location="classpath:dp.properties"/>
     <!--配置数据源-->

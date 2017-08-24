@@ -1,6 +1,5 @@
 package org.x1.serializer.protostuffer;
 
-import org.yinet.s1.net.tcp.model.ResponseSerializer;
 
 import java.util.Arrays;
 
