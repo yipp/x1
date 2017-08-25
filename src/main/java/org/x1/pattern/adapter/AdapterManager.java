@@ -1,6 +1,6 @@
-package org.x1.listener;
+package org.x1.pattern.adapter;
 
-import org.apache.poi.ss.formula.functions.T;
+import org.x1.pattern.Logic;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +12,7 @@ import java.util.Set;
  * 时间： 2017/8/23.
  * 描述：
  */
-public abstract class LogicManager<T extends Logic> {
+public abstract class AdapterManager<T extends Logic> {
     private final Map<String,T> map = new HashMap<>();
     protected void init(){
         if(this.getSet() != null){

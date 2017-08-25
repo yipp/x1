@@ -2,7 +2,6 @@ package org.x1.net.process;
 
 import io.netty.channel.Channel;
 import org.springframework.stereotype.Component;
-import org.x1.Test;
 import org.x1.executor.ExecutorUtils;
 import org.x1.logic.LogicAbstract;
 import org.x1.net.model.ISerializer;

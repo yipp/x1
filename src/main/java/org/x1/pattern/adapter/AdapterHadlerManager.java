@@ -1,4 +1,4 @@
-package org.x1.listener;
+package org.x1.pattern.adapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import java.util.Set;
  * 描述：
  */
 @Service
-public class HadlerManager extends LogicManager<IHandler> {
+public class AdapterHadlerManager extends AdapterManager<IAdapter> {
     @Autowired
-    private Set<IHandler> set;
+    private Set<IAdapter> set;
     @Override
-    public Set<IHandler> getSet() {
+    public Set<IAdapter> getSet() {
         return set;
     }
     @PostConstruct
