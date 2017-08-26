@@ -1,13 +1,13 @@
-package org.x1.net;
+package org.x1.net.manager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.x1.net.model.Request;
-import org.x1.net.process.MassegeHandOut;
+import org.x1.springUtils.SpringUtils;
 
-public class ServerHandler extends SimpleChannelInboundHandler<Request>{
+public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 	/**消息分发器*/
-	private MassegeHandOut massegeHandOut = new MassegeHandOut();
+	private MassegeOutManager massegeHandOut = SpringUtils.getBean(MassegeOutManager.class);
 	private void process(Channel channel,Request request) throws CloneNotSupportedException {
 		massegeHandOut.process(channel,request);
 	}

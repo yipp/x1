@@ -1,4 +1,4 @@
-package org.x1.net;
+package org.x1.net.manager;
 
 
 import io.netty.buffer.ByteBuf;
@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.x1.net.model.Response;
 
-public class ResponseEncoder extends MessageToByteEncoder<Response> {
+public class ResponseEncoderManager extends MessageToByteEncoder<Response> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Response response, ByteBuf buffer) throws Exception {

@@ -1,4 +1,4 @@
-package org.x1.net;
+package org.x1.net.manager;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.x1.net.model.Request;
 
-public class RequestDecoder extends ByteToMessageDecoder {
+public class RequestDecoderManager extends ByteToMessageDecoder {
     /**
      * 数据包的基本长度：包头+id+数据长度
      * 每个协议都是�?个int类型的基本数据占4个字�?

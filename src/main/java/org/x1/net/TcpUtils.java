@@ -10,6 +10,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.x1.net.manager.RequestDecoderManager;
+import org.x1.net.manager.ResponseEncoderManager;
+import org.x1.net.manager.ServerHandlerManager;
 
 /**
  * 网络链接
@@ -27,9 +30,9 @@ public class TcpUtils {
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new RequestDecoder());
-                            ch.pipeline().addLast(new ResponseEncoder());
-                            ch.pipeline().addLast(new ServerHandler());
+                            ch.pipeline().addLast(new RequestDecoderManager());
+                            ch.pipeline().addLast(new ResponseEncoderManager());
+                            ch.pipeline().addLast(new ServerHandlerManager());
                         }
                     });
             //绑定端口

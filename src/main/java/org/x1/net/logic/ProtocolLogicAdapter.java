@@ -1,4 +1,4 @@
-package org.x1.logic;
+package org.x1.net.logic;
 
 import org.x1.net.model.ISerializer;
 import org.x1.player.CorePlayer;
@@ -8,9 +8,9 @@ import org.x1.player.CorePlayer;
  * 时间： 2017/8/22.
  * 描述：
  */
-public abstract class LogicAbstract<T extends ISerializer> implements Runnable {
-    private T msg;
+public abstract class ProtocolLogicAdapter<T extends ISerializer> implements ProtocolLogic {
     private short id;
+    private T msg;
     private CorePlayer corePlayer;
 
     public T getMsg() {
@@ -41,5 +41,4 @@ public abstract class LogicAbstract<T extends ISerializer> implements Runnable {
     public void run() {
         executor();
     }
-    public abstract void executor();
 }
