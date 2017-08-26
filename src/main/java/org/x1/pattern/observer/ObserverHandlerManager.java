@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.x1.pattern.Logic;
 
+import javax.annotation.PostConstruct;
 import java.util.Iterator;
 import java.util.Observer;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class ObserverHandlerManager extends  ObserverManager<IObserver> {
     public Set<IObserver> getSet() {
         return set;
     }
-
+    @PostConstruct
     @Override
     public void notifyx() {
         if(this.getSet() != null) {

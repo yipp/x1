@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
         Test test = new Test(100000, null);
         //Object s = new SerializerTest("易","",23,"理工");
-        byte[] buf = ProtostuffUtils.serializer(test);
+        byte[] buf = SerializerUtils.serializer(test);
         System.out.println(Arrays.toString((byte[]) buf));
-        Test test1 = ProtostuffUtils.deserializer((byte[]) buf, Test.class);
+        Test test1 = SerializerUtils.deserializer((byte[]) buf, Test.class);
         System.out.println(test1);
     }
 }

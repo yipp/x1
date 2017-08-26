@@ -9,11 +9,11 @@ import org.x1.net.model.Request;
 import org.x1.player.CorePlayer;
 import org.x1.player.PlayerCache;
 import org.x1.player.PlayerEntity;
-import org.x1.serializer.protostuffer.ProtostuffUtils;
+import org.x1.serializer.protostuffer.SerializerUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by ppdashi on 2017/7/15.
@@ -27,7 +27,7 @@ public class MassegeOutManager {
     private Map<Short, ISerializer> serializerModel;
 
     public MassegeOutManager() {
-        serializerModel = new HashMap<>();
+        serializerModel = new ConcurrentHashMap<>();
     }
 
     @PostConstruct
@@ -42,7 +42,7 @@ public class MassegeOutManager {
         try {
             protocolLogic = protocolManager.getLogic(request.getId());
             if (serializerModel.containsKey(request.getId()) && request.getDataLength() > 0)
-                serializer = ProtostuffUtils.deserializer(request.getDATA(), serializerModel.get(request.getId()).getClass());
+                serializer = SerializerUtils.deserializer(request.getDATA(), serializerModel.get(request.getId()).getClass());
             if (PlayerCache.playerMap.containsKey(channel)) {
                 corePlayer = PlayerCache.playerMap.get(channel);
             } else if (request.getId() > 1) {
