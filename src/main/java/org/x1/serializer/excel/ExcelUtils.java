@@ -4,27 +4,28 @@ import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
+import org.x1.serializer.json.Main;
 
+import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-
+@Service
 public class ExcelUtils {
     /**
      *
      */
     private static Logger logger;
-    public static Map<String, Object> bean = new HashMap<>();
-
     static {
         logger = Logger.getLogger(ExcelUtils.class);
     }
-
+    @PostConstruct
     public static void init() {
         ClassPathExcelContext("src/main/resources/excel/CoreBasic.xlsx", "org.yinet.s1.dao.excel.CoreBasic");
     }
-
     /**
      * 解析ecxel表
      */
@@ -42,7 +43,6 @@ public class ExcelUtils {
             Sheet sheet = book.getSheetAt(0);//取到工作谱（每一页是一个工作谱）
             Iterator<Row> rows = sheet.iterator();
             List<String> obj = null;
-            int i = 0;
             logger.info("开始读取" + fileName + "行的内容");
             while (rows.hasNext()) {
                 Row row = rows.next();
@@ -88,6 +88,7 @@ public class ExcelUtils {
     }
 
     private static void serializerObj(List<Map<String, String>> objs, String clazzName) {
+        Map<Serializable, Object> beanMap = new HashMap<>();
         Class clazz = null;
         Object beanObj;
         String[] str = clazzName.split("\\.");
@@ -131,9 +132,11 @@ public class ExcelUtils {
                     logger.error(e);
                 }
             }
-            bean.put(beanName + i, beanObj);
+            beanMap.put(i, beanObj);
         }
-        System.err.println(bean);
+        //添加到所有导表缓存类中
+         DataTableMessage.getInstance().putData(beanObj.getClass(),beanMap);
+        System.err.println(beanMap);
     }
 
     private static Method writeMethod(Object beanObj, String name) {
@@ -159,10 +162,5 @@ public class ExcelUtils {
             throw new RuntimeException(beanObj.getClass() + "没有" + methodName + "这个方法");
         }
         return m;
-    }
-
-    public static Object getExcelBean(String beanName) {
-        if (bean.containsKey(beanName)) return bean.get(beanName);
-        return null;
     }
 }  
