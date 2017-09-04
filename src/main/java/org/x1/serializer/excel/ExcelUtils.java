@@ -138,7 +138,8 @@ public class ExcelUtils {
                     logger.error(e);
                 }
             }
-            beanMap.put(id, beanObj);
+            if(id != 0)
+                beanMap.put(id, beanObj);
         }
         //添加到所有导表缓存类中
          DataTableMessage.getInstance().putData(beanObj.getClass(),beanMap);
