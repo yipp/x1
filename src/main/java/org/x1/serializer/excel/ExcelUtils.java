@@ -73,11 +73,11 @@ public class ExcelUtils {
     }
 
     private static void serializerFile(List<List<String>> file, String clazzName) {
-        List<Map<String, String>> objMap = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> objMap = new ArrayList<>();
         Map<String, String> objs;
         logger.info("开始转换成map");
         for (int i = 1; i < file.size(); i++) {
-            objs = new HashMap<String, String>();
+            objs = new HashMap<>();
             for (int j = 0; j < file.get(i).size(); j++) {
                 objs.put(file.get(0).get(j), file.get(i).get(j));
             }
@@ -111,7 +111,13 @@ public class ExcelUtils {
             throw new RuntimeException("" + clazzName);
         }
         for (int i = 0; i < objs.size(); i++) {
+            boolean isId = true;
+            int id = 0;
             for (Map.Entry<String, String> entry : objs.get(i).entrySet()) {
+                if(isId) {
+                    id = Integer.parseInt(entry.getValue());
+                    isId = false;
+                }
                 try {
                     Object value = null;
                     logger.info("开始实例化反射属性");
@@ -132,7 +138,7 @@ public class ExcelUtils {
                     logger.error(e);
                 }
             }
-            beanMap.put(i, beanObj);
+            beanMap.put(id, beanObj);
         }
         //添加到所有导表缓存类中
          DataTableMessage.getInstance().putData(beanObj.getClass(),beanMap);
