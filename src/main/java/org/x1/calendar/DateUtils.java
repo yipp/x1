@@ -60,7 +60,7 @@ public class DateUtils {
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR),c.get(Calendar.MONDAY),c.get(Calendar.DAY_OF_MONTH),0,0,0);
         c.set(Calendar.DAY_OF_MONTH,c.getActualMaximum(Calendar.DAY_OF_MONTH));
-        c.set(Calendar.HOUR_OF_DAY,20);
+        c.set(Calendar.HOUR_OF_DAY,24);
         return  c;
     }
     public static int month(){
