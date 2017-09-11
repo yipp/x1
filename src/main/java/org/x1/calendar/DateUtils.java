@@ -105,4 +105,17 @@ public class DateUtils {
         c.add(Calendar.SECOND,30);
         return c.getTimeInMillis();
     }
+
+    /**
+     * 今天是星期几
+     * @return
+     */
+    public static int getTodayOnWeek(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.DAY_OF_WEEK)-1;
+    }
+    public static void main(String[] args) {
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.get(Calendar.DAY_OF_WEEK)-1);
+    }
 }
