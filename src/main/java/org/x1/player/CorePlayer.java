@@ -9,6 +9,7 @@ import io.netty.channel.Channel;
  */
 public class CorePlayer {
     private Channel channel;
+    private int scenesId;
     private PlayerEntity playerEntity;
 
     public CorePlayer() {
@@ -40,6 +41,15 @@ public class CorePlayer {
     public void setPlayerEntity(PlayerEntity playerEntity) {
         this.playerEntity = playerEntity;
     }
+
+    public int getScenesId() {
+        return scenesId;
+    }
+
+    public void setScenesId(int scenesId) {
+        this.scenesId = scenesId;
+    }
+
     private void get(){
         //从数据库中找
     }
