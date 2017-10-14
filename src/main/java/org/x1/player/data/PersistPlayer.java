@@ -1,4 +1,4 @@
-package org.x1.player;
+package org.x1.player.data;
 
 import io.netty.channel.Channel;
 

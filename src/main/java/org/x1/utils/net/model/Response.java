@@ -4,28 +4,28 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Response {
-	private int id;
+	private short id;
 
 	/**
 	 * 数据
 	 */
-	private byte[] DATA;
+	private byte[] data;
 	
-	public int getId() {
+	public short getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(short id) {
 		this.id = id;
 	}
-	public byte[] getDATA() {
-		return DATA;
+	public byte[] getData() {
+		return data;
 	}
-	public void setDATA(byte[] dATA) {
-		DATA = dATA;
+	public void setData(byte[] dATA) {
+		data = dATA;
 	}
 	public int getDataLength(){
-		if(DATA != null){
-			return DATA.length;
+		if(data != null){
+			return data.length;
 		}
 		return 0;
 	}

@@ -6,6 +6,7 @@ import org.x1.utils.net.logic.ProtocolLogicAdapter;
 import org.x1.pattern.adapter.AdapterManager;
 import org.x1.utils.SpringUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.Set;
 
 /**
@@ -24,7 +25,7 @@ public class ProtocolManager extends AdapterManager<ProtocolLogicAdapter>{
     public Set<ProtocolLogicAdapter> getSet() {
         return set;
     }
-
+    @PostConstruct
     @Override
     protected void init() {
         super.init();

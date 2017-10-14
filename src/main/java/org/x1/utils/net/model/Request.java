@@ -11,7 +11,7 @@ public class Request {
 	/**
 	 * 数据
 	 */
-	private byte[] DATA;
+	private byte[] data;
 
 
 	public short getId() {
@@ -22,17 +22,17 @@ public class Request {
 		this.id = id;
 	}
 
-	public byte[] getDATA() {
-		return DATA;
+	public byte[] getData() {
+		return data;
 	}
 
-	public void setDATA(byte[] DATA) {
-		this.DATA = DATA;
+	public void setData(byte[] data) {
+		this.data = data;
 	}
 
 	public short getDataLength(){
-		if(DATA != null){
-			return (short) DATA.length;
+		if(data != null){
+			return (short) data.length;
 		}
 		return 0;
 	}

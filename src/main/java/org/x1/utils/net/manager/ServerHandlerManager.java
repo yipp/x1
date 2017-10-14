@@ -7,15 +7,20 @@ import org.x1.utils.SpringUtils;
 
 public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 	/**消息分发器*/
-	private MassegeOutManager massegeHandOut = SpringUtils.getBean(MassegeOutManager.class);
-	private void process(Channel channel,Request request) throws CloneNotSupportedException {
-		massegeHandOut.process(channel,request);
+	private MessageOutManager messageOutManager;
+
+	public ServerHandlerManager() {
+		this.messageOutManager = SpringUtils.getBean(MessageOutManager.class);
+	}
+
+	private void process(Channel channel, Request request) throws CloneNotSupportedException {
+		messageOutManager.process(channel,request);
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		//客户端在
-		System.out.println("用户进来"+ctx.channel().remoteAddress());
+		System.err.println("用户上线"+ctx.channel().remoteAddress());
 	}
 
 	@Override
@@ -25,6 +30,8 @@ public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		System.err.println("用户下线"+ctx.channel().remoteAddress());
+		ctx.channel().close();
 	}
 
 	@Override
@@ -32,5 +39,4 @@ public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 		//将消息发送到消息分发
 		process(ctx.channel(), request);
 	}
-
 }

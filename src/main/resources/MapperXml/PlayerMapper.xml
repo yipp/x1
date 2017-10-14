@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间（包名） -->
+<mapper namespace="org.x1.sqlmapper.PlayerMapper">
+    <select id="selectUser" resultType="org.x1.player.model.PlayerModel">
+        select * from coreplayer where id = #{id}
+    </select>
+    <select id="selectAll" resultType="java.lang.String">
+        select * from coreplayer
+    </select>
+    <insert id="addUser" parameterType="org.x1.player.model.PlayerModel" useGeneratedKeys="true">
+        insert into coreplayer(id,account,playerInfo,wealth,shop,friend,activity,moneyTree) values(#{id},#{account},#{playerInfo},#{wealth},#{shop},#{friend},#{activity},#{moneyTree})
+    </insert>
+    <update id="updateUser" parameterType="org.x1.player.model.PlayerModel">
+        update coreplayer set account=#{account},playerInfo=#{playerInfo},wealth=#{wealth} where id=#{id}
+    </update>
+    <delete id="deleteUser">
+        delete from coreplayer where id=#{id}
+    </delete>
+    <select id="selectUserForAccount" resultType="org.x1.player.model.PlayerModel">
+        select * from coreplayer where account = #{account}
+    </select>
+</mapper>

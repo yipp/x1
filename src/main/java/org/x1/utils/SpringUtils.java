@@ -16,6 +16,7 @@ public class SpringUtils {
     }
 
     public static <T> T getBean(final Class<T> clazz) {
+        System.out.println(clazz);
         try {
             T obj = ctx.getBean(clazz);
             return obj;

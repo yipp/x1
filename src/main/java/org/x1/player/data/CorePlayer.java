@@ -1,6 +1,4 @@
-package org.x1.player;
-
-import io.netty.channel.Channel;
+package org.x1.player.data;
 
 /**
  * 作者：泡泡大湿
@@ -8,32 +6,30 @@ import io.netty.channel.Channel;
  * 描述：
  */
 public class CorePlayer {
-    private Channel channel;
+    public enum LoginType{
+        Photon
+    }
+    public enum ScenesId{
+        Login(1),
+        Main(2),
+        FryFlower(3);
+        private int id;
+        private ScenesId(int id){
+            this.id = id;
+        }
+        public int id(){
+            return id;
+        }
+    }
     private int scenesId;
     private PlayerEntity playerEntity;
 
     public CorePlayer() {
     }
 
-    public CorePlayer(Channel channel) {
-        this.channel = channel;
-        get();
-    }
-
-    public CorePlayer(Channel channel, PlayerEntity playerEntity) {
-        this.channel = channel;
+    public CorePlayer(PlayerEntity playerEntity) {
         this.playerEntity = playerEntity;
     }
-
-    public Channel getChannel() {
-
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
     public PlayerEntity getPlayerEntity() {
         return playerEntity;
     }
@@ -50,7 +46,4 @@ public class CorePlayer {
         this.scenesId = scenesId;
     }
 
-    private void get(){
-        //从数据库中找
-    }
 }

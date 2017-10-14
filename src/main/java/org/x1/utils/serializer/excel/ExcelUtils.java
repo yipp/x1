@@ -1,5 +1,6 @@
 package org.x1.utils.serializer.excel;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.*;
@@ -21,7 +22,7 @@ public class ExcelUtils {
     static {
         logger = Logger.getLogger(ExcelUtils.class);
     }
-    @PostConstruct
+
     public static void init() {
         ClassPathExcelContext("src/main/resources/excel/CoreBasic.xlsx", "org.yinet.s1.dao.excel.CoreBasic");
     }
@@ -74,7 +75,6 @@ public class ExcelUtils {
     private static void serializerFile(List<List<String>> file, String clazzName) {
         List<Map<String, String>> objMap = new ArrayList<>();
         Map<String, String> objs;
-        logger.info("开始转换成map");
         for (int i = 1; i < file.size(); i++) {
             objs = new HashMap<>();
             for (int j = 0; j < file.get(i).size(); j++) {
@@ -82,7 +82,6 @@ public class ExcelUtils {
             }
             objMap.add(objs);
         }
-        System.err.println(objMap);
         serializerObj(objMap, clazzName);
     }
 
@@ -94,19 +93,15 @@ public class ExcelUtils {
         String beanName = str[str.length - 1];
         System.err.println(beanName);
         try {
-            logger.info("反射");
             clazz = Class.forName(clazzName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            logger.error(e);
-            throw new RuntimeException("-------找不到-------" + clazzName);
+            throw new RuntimeException("-------找不到-------" + clazzName+e);
         }
 
         try {
-            logger.info("开始实例化反射类");
             beanObj = clazz.newInstance();
         } catch (Exception e) {
-            logger.error(e);
             throw new RuntimeException("" + clazzName);
         }
         for (int i = 0; i < objs.size(); i++) {
@@ -119,7 +114,6 @@ public class ExcelUtils {
                 }
                 try {
                     Object value = null;
-                    logger.info("开始实例化反射属性");
                     Method m = writeMethod(beanObj, entry.getKey());
 
                     Class<?>[] setMethod = m.getParameterTypes();

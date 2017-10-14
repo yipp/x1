@@ -46,7 +46,7 @@ public class RequestDecoderManager extends ByteToMessageDecoder {
             buffer.readBytes(data);
             Request message = new Request();
             message.setId(id);
-            message.setDATA(data);
+            message.setData(data);
             out.add(message);
         }
         //数据不完整，等待完整的数据包

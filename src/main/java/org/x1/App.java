@@ -1,9 +1,10 @@
 package org.x1;
 
-import org.x1.utils.net.model.ISerializer;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.omg.CORBA.CTX_RESTRICT_SCOPE;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.x1.utils.SpringUtils;
+import org.x1.utils.net.TcpUtils;
+import org.x1.utils.net.manager.ProtocolManager;
 
 /**
  * Hello world!
@@ -13,8 +14,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Map<Integer,ISerializer> map = new HashMap<>();
-
-        System.out.println(map.get(1));
+      //  SpringUtils springUtils = new SpringUtils();
+        TcpUtils.start(1024);
     }
 }

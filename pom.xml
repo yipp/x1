@@ -38,7 +38,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.29</version>
+      <version>5.1.42</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
     <dependency>
@@ -128,7 +128,7 @@
               <archive>
                 <manifest>
                   <!--主函数入口-->
-                  <mainClass>org.test.AStar</mainClass>
+                  <mainClass>org.x1.App</mainClass>
                 </manifest>
               </archive>
             </configuration>
