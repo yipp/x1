@@ -10,6 +10,7 @@ import org.x1.logic.login.dto.AccountDto;
 import org.x1.logic.moneytree.model.MoneyTree;
 import org.x1.player.data.CorePlayer;
 import org.x1.player.data.PlayerEntity;
+import org.x1.player.data.PlayerTable;
 import org.x1.player.model.*;
 import org.x1.sqlmapper.PlayerMapper;
 
@@ -49,14 +50,10 @@ public class SerializerPlayerModel {
         PlayerEntity entity = null;
         PlayerInfo info = new PlayerInfo();
         info.setAccount(dto.getAccount());
-        info.setDiscibe("我是大佬啊");
-        info.setHead(1);
-        info.setName("王者归来");
-        info.setPassword("111111");
-        info.setType(dto.getLoginType());
-        info.setGender(1);
+        PlayerTable table = PlayerTable.get(1);
         info.setWeekDay(DateUtils.getTodayOnWeek());
         info.setId(77888);
+        BeanUtils.copyProperties(table,info);
         String playerInfo = JSON.toJSONString(info);
         String wealth = JSON.toJSONString(new Wealth());
         String shop = JSON.toJSONString(new PersistActivity());

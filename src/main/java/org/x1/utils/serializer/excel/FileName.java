@@ -1,8 +1,13 @@
 package org.x1.utils.serializer.excel;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 作者：泡泡大湿
@@ -15,12 +20,12 @@ public class FileName {
      * @param path
      * @return
      */
-    public static String [] getFileName(String path)
-    {
-        File file = new File(path);
-        String [] fileName = file.list();
-        return fileName;
-    }
+//    public static String [] getFileName(String path)
+//    {
+//        File file = new File(path);
+//        String [] fileName = file.list();
+//        return fileName;
+//    }
 
     /**
      * 方法2
@@ -42,26 +47,23 @@ public class FileName {
             }
         }
     }
-    public static void main(String[] args)
-    {
-//        String [] fileName = getFileName("E:\\JavaUtils/SerializerUtils/src/main/java/org/yunet/serializer/ecxel");
-//        for(String name:fileName)
-//        {
-//            System.out.println(name);
+//    public static Map<String,String> getFileName(String path)
+//    {
+//        Map<String,String> fileMap = new HashMap<>();
+//        File file = new File(path);
+//        String[] beanNames = file.list();
+//        File[] files = file.listFiles();
+//        for (int i = 0;i<files.length;i++){
+//            String beanName = StringUtils.substringBeforeLast(beanNames[i],".");
+//            beanName = StringUtils.substringAfter(beanName,"_");
+//            String s = files[i].toString();
+//            String fileName = StringUtils.replace(s,"\\","/");
+//            fileMap.put(beanName,fileName);
 //        }
-        System.out.println(ExcelUtils.class);
-        File file = new File("src/main/resources/excel");
-        File [] files = file.listFiles();
-        String [] names = file.list();
-        System.out.println(Arrays.toString(files));
-//        System.out.println("--------------------------------");
-//        ArrayList<String> listFileName = new ArrayList<String>();
-//        getAllFileName("E:\\JavaUtils/SerializerUtils/src/main/java/org/yunet/serializer/ecxel",listFileName);
-//        for(String name:listFileName)
-//        {
-//            System.out.println(name);
-//        }
+//        return fileMap;
+//    }
 
-    }
-
+//    public static void main(String[] args) {
+//        System.out.println(Arrays.toString(getFileName("src/main/resources/excel")));
+//    }
 }

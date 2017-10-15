@@ -3,8 +3,10 @@ package org.x1.logic.activity.command;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.x1.calendar.DateUtils;
+import org.x1.logic.activity.data.ActivityTable;
 import org.x1.logic.activity.dto.ActivityDto;
 import org.x1.logic.activity.model.PersistActivity;
+import org.x1.logic.vip.data.VipTable;
 import org.x1.player.data.PlayerEntity;
 import org.x1.player.model.Wealth;
 import org.x1.utils.net.logic.ProtocolLogicAdapter;
@@ -26,7 +28,10 @@ public class Action_3 extends ProtocolLogicAdapter<ActivityDto> {
         activity.setId(entity.getId());
         activity.setDraw(true);
         int money = entity.getGold();
-        entity.setGold(money+1000);
+        int getMoney = ActivityTable.get(DateUtils.getTodayOnWeek()).getCount();
+        if(entity.getVip()>0)
+            getMoney += getMoney* VipTable.get(entity.getVip()).getActivityAdd();
+        entity.setGold(money+getMoney);
         Wealth wealth = new Wealth();
         BeanUtils.copyProperties(entity,wealth);
         wealth.update();
