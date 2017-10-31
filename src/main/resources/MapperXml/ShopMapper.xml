@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间（包名） -->
+<mapper namespace="org.x1.sqlmapper.ShopMapper">
+    <update id="update" parameterType="org.x1.player.model.PlayerModel">
+        update coreplayer set shop=#{shop} where id=#{id}
+    </update>
+</mapper>

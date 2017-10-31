@@ -11,7 +11,7 @@ import org.x1.utils.serializer.excel.StaticConfigMessage;
 public class PlayerTable implements DataTableMessage {
 
     private int id;
-    private int name;
+    private String name;
     private int head;
     private String discibe;
     private String password;
@@ -21,60 +21,60 @@ public class PlayerTable implements DataTableMessage {
     public int id() {
         return id;
     }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public static PlayerTable get(int id) {
         return StaticConfigMessage.getInstance().get(PlayerTable.class,id);
     }
 
-    public int getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(int name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public int getHead() {
         return head;
     }
 
-    public void setHead(int head) {
-        this.head = head;
-    }
-
     public String getDiscibe() {
         return discibe;
-    }
-
-    public void setDiscibe(String discibe) {
-        this.discibe = discibe;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getType() {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public int getGender() {
         return gender;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHead(int head) {
+        this.head = head;
+    }
+
+    public void setDiscibe(String discibe) {
+        this.discibe = discibe;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setGender(int gender) {

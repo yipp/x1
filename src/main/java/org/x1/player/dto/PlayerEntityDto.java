@@ -1,15 +1,16 @@
-package org.x1.player.data;
+package org.x1.player.dto;
 
 import org.x1.logic.activity.model.PersistActivity;
 import org.x1.logic.moneytree.model.MoneyTree;
 import org.x1.utils.net.model.ISerializer;
 
 /**
- * 作者：泡泡大湿
- * 时间： 2017/8/22.
+ * 作者：---->泡泡大湿<-----
+ * 时间：********2017/10/29******
  * 描述：
  */
-public class PlayerEntity implements ISerializer {
+public class PlayerEntityDto implements ISerializer {
+
     /**
      * id
      */
@@ -66,11 +67,14 @@ public class PlayerEntity implements ISerializer {
      * 密码
      */
     private String password;
-    /**今天是周几*/
+    /**
+     * 今天是周几
+     */
     private int weekDay;
-
-    public PlayerEntity() {
-    }
+    /**
+     * vip到期时间
+     */
+    private int vipUpdateTime;
 
     public int getId() {
 
@@ -191,5 +195,13 @@ public class PlayerEntity implements ISerializer {
 
     public void setWeekDay(int weekDay) {
         this.weekDay = weekDay;
+    }
+
+    public int getVipUpdateTime() {
+        return vipUpdateTime;
+    }
+
+    public void setVipUpdateTime(int vipUpdateTime) {
+        this.vipUpdateTime = vipUpdateTime;
     }
 }

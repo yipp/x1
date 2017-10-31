@@ -1,5 +1,7 @@
 package org.x1.calendar;
 
+import sun.rmi.runtime.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +39,25 @@ public class DateUtils {
     }
     public static long dayEndMillis(){
         return dayEndCalendar().getTimeInMillis();
+    }
+
+    /**
+     * 当天+30天之后
+     * @return
+     */
+    public static int vipUpdateTime(int residue){
+        Calendar c = vip();
+        c.set(Calendar.DAY_OF_YEAR,c.get(Calendar.DAY_OF_YEAR)+residue);
+        Date date = c.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String from = format.format(date);
+        int to = Integer.parseInt(from);
+        return to;
+    }
+    private static Calendar vip(){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_YEAR,c.get(Calendar.DAY_OF_YEAR)+30);
+        return c;
     }
     /*
     *当前天+7天
@@ -95,7 +116,15 @@ public class DateUtils {
         }
         return time;
     }
-
+    public static long getTimeMillisToxx(String date){
+        long time = 0;
+        try {
+            time = org.apache.commons.lang3.time.DateUtils.parseDate(date,"yyyyMMdd").getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
     /**
      * 30秒之后
      * @return
@@ -112,10 +141,12 @@ public class DateUtils {
      */
     public static int getTodayOnWeek(){
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.DAY_OF_WEEK)-1;
+        int week = c.get(Calendar.DAY_OF_WEEK)-1;
+        return week == 0?7:week;
     }
     public static void main(String[] args) {
-        Calendar c = Calendar.getInstance();
-        System.out.println(c.get(Calendar.DAY_OF_WEEK)-1);
+        int t = vipUpdateTime(0);
+        System.out.println(t);
+        System.out.println(getTimeMillisToxx(t+""));
     }
 }

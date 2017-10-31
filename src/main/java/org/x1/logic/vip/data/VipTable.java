@@ -27,36 +27,36 @@ public class VipTable implements DataTableMessage {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public float getShopDis() {
         return shopDis;
-    }
-
-    public void setShopDis(float shopDis) {
-        this.shopDis = shopDis;
     }
 
     public float getMoneyTreeAdd() {
         return moneyTreeAdd;
     }
 
-    public void setMoneyTreeAdd(float moneyTreeAdd) {
-        this.moneyTreeAdd = moneyTreeAdd;
-    }
-
     public float getActivityAdd() {
         return activityAdd;
     }
 
-    public void setActivityAdd(float activityAdd) {
-        this.activityAdd = activityAdd;
-    }
-
     public int getShopCapacity() {
         return shopCapacity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setShopDis(float shopDis) {
+        this.shopDis = shopDis;
+    }
+
+    public void setMoneyTreeAdd(float moneyTreeAdd) {
+        this.moneyTreeAdd = moneyTreeAdd;
+    }
+
+    public void setActivityAdd(float activityAdd) {
+        this.activityAdd = activityAdd;
     }
 
     public void setShopCapacity(int shopCapacity) {

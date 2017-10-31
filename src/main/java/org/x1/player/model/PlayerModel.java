@@ -90,7 +90,7 @@ public class PlayerModel extends PersistJson<PlayerMapper>{
     }
 
     @Override
-    public boolean update() {
+    public boolean executorUpdate() {
         return false;
     }
 }

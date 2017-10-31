@@ -2,15 +2,19 @@ package org.x1.utils.net.manager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.x1.executor.ExecutorUtils;
+import org.x1.player.data.PersistPlayer;
+import org.x1.utils.net.logic.ProtocolLogicAdapter;
 import org.x1.utils.net.model.Request;
 import org.x1.utils.SpringUtils;
+import org.x1.utils.serializer.protostuffer.SerializerUtils;
 
 public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 	/**消息分发器*/
 	private MessageOutManager messageOutManager;
 
 	public ServerHandlerManager() {
-		this.messageOutManager = SpringUtils.getBean(MessageOutManager.class);
+		this.messageOutManager = MessageOutManager.getInstance();
 	}
 
 	private void process(Channel channel, Request request) throws CloneNotSupportedException {
@@ -37,6 +41,7 @@ public class ServerHandlerManager extends SimpleChannelInboundHandler<Request>{
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Request request) throws Exception {
 		//将消息发送到消息分发
+
 		process(ctx.channel(), request);
 	}
 }

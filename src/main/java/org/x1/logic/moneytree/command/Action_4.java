@@ -3,12 +3,12 @@ package org.x1.logic.moneytree.command;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.x1.calendar.DateUtils;
-import org.x1.logic.activity.dto.ActivityDto;
+import org.x1.error.data.ErrorCode;
+import org.x1.error.manager.AppErrorGeneral;
 import org.x1.logic.moneytree.data.MoneyTreeTable;
 import org.x1.logic.moneytree.dto.MoneyTreeDto;
 import org.x1.logic.moneytree.model.MoneyTree;
 import org.x1.logic.vip.data.VipTable;
-import org.x1.player.data.PlayerEntity;
 import org.x1.player.model.Wealth;
 import org.x1.utils.net.logic.ProtocolLogicAdapter;
 
@@ -26,12 +26,17 @@ public class Action_4 extends ProtocolLogicAdapter<MoneyTreeDto> {
         boolean recieve = false;
         int vipAdd = 0;
         int getMoney = 0;
-        if(!tree.isBuyTree()){
+        if(!tree.isBuyTree() && this.getMsg().isBuy() && entity.getDiamond()<10) {
+            new AppErrorGeneral(this.getCtx(), ErrorCode.DIAMOND_DEFICIENCY);
+        }else if(!tree.isBuyTree() && this.getMsg().isBuy() && entity.getDiamond()>10){
+            int diamond = entity.getDiamond();
+            diamond -= 10;
+            entity.setDiamond(diamond);
             tree.setBuyTree(true);
             tree.setId(entity.getId());
             tree.setTime(DateUtils.currentTime());
             recieve = true;
-        }else{
+        }else if(tree.isBuyTree() && this.getMsg().isGet()){
             int time = (int) ((DateUtils.currentTime() - tree.getTime())/(1000*60*60));
             if(time>0){
                 //加金币
@@ -42,13 +47,15 @@ public class Action_4 extends ProtocolLogicAdapter<MoneyTreeDto> {
                 if(entity.getVip()>0)
                     vipAdd = (int) (getMoney*VipTable.get(entity.getVip()).getMoneyTreeAdd());
                 entity.setGold(money+getMoney+vipAdd);
-                Wealth wealth = new Wealth();
-                BeanUtils.copyProperties(entity,wealth);
-                wealth.update();
                 recieve = true;
             }
         }
-        tree.update();
-        this.response(new MoneyTreeDto(recieve,DateUtils.currentTime(),getMoney,vipAdd));
+        if(recieve) {
+            Wealth wealth = new Wealth();
+            BeanUtils.copyProperties(entity,wealth);
+            wealth.update();
+            tree.update();
+        }
+        this.response(new MoneyTreeDto(recieve,DateUtils.currentTime(),getMoney,vipAdd,tree.isBuyTree()));
     }
 }

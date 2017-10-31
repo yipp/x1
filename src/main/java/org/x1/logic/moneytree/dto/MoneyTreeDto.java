@@ -13,14 +13,16 @@ public class MoneyTreeDto implements ISerializer{
     private long time;
     private int money;
     private int vipAdd;
+    private boolean buy;
     public MoneyTreeDto() {
     }
 
-    public MoneyTreeDto(boolean get, long time, int money, int vipAdd) {
+    public MoneyTreeDto(boolean get, long time, int money, int vipAdd, boolean buy) {
         this.get = get;
         this.time = time;
         this.money = money;
         this.vipAdd = vipAdd;
+        this.buy = buy;
     }
 
     public boolean isGet() {
@@ -54,4 +56,13 @@ public class MoneyTreeDto implements ISerializer{
     public void setVipAdd(int vipAdd) {
         this.vipAdd = vipAdd;
     }
+
+    public boolean isBuy() {
+        return buy;
+    }
+
+    public void setBuy(boolean buy) {
+        this.buy = buy;
+    }
+
 }

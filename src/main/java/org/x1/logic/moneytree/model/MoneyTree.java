@@ -34,6 +34,7 @@ public class MoneyTree extends PersistJson<MoneyTreeMapper> {
         this.buyTree = buyTree;
     }
 
+
     public long getTime() {
         return time;
     }
@@ -43,7 +44,7 @@ public class MoneyTree extends PersistJson<MoneyTreeMapper> {
     }
 
     @Override
-    public boolean update() {
+    public boolean executorUpdate() {
         /**更新角色信息*/
         String moneyTree = JSON.toJSONString(this);
         PlayerModel model = new PlayerModel();

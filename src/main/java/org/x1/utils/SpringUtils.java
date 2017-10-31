@@ -21,6 +21,7 @@ public class SpringUtils {
             T obj = ctx.getBean(clazz);
             return obj;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("找不到Action_" + clazz.getName() + "这个脚本类");
         }
     }
@@ -30,6 +31,7 @@ public class SpringUtils {
             T obj = (T) ctx.getBean(beanName);
             return obj;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("找不到Action_" + beanName + "这个脚本类");
         }
     }

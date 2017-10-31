@@ -10,7 +10,6 @@ import org.x1.utils.net.model.ISerializer;
 public class ActivityDto implements ISerializer {
     private int weekDay;
     private boolean draw;
-
     public ActivityDto() {
     }
 
@@ -20,6 +19,7 @@ public class ActivityDto implements ISerializer {
     }
 
     public int getWeekDay() {
+
         return weekDay;
     }
 
@@ -34,4 +34,5 @@ public class ActivityDto implements ISerializer {
     public void setDraw(boolean draw) {
         this.draw = draw;
     }
+
 }

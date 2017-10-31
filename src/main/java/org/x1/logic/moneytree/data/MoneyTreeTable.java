@@ -22,13 +22,12 @@ public class MoneyTreeTable implements DataTableMessage {
     public int getId() {
         return id;
     }
+    public int getMake() {
+        return make;
+    }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getMake() {
-        return make;
     }
 
     public void setMake(int make) {

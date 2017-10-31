@@ -109,9 +109,8 @@ public class PlayerInfo extends PersistJson<PlayerInfoMapper> {
     public void setWeekDay(int weekDay) {
         this.weekDay = weekDay;
     }
-
     @Override
-    public boolean update() {
+    public boolean executorUpdate() {
         //    /**更新角色信息*/
         String playerInfo = JSON.toJSONString(this);
         PlayerModel model = new PlayerModel();

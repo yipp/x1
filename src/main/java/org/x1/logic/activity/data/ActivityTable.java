@@ -1,6 +1,5 @@
 package org.x1.logic.activity.data;
 
-import org.x1.player.data.CoreBasic;
 import org.x1.utils.serializer.excel.DataTableMessage;
 import org.x1.utils.serializer.excel.StaticConfigMessage;
 
@@ -12,7 +11,7 @@ import org.x1.utils.serializer.excel.StaticConfigMessage;
 public class ActivityTable implements DataTableMessage{
     private int id;
     private String name;
-    private int icon;
+    private String icon;
     private int count;
     @Override
     public int id() {
@@ -21,32 +20,33 @@ public class ActivityTable implements DataTableMessage{
     public static ActivityTable get(int id) {
         return StaticConfigMessage.getInstance().get(ActivityTable.class,id);
     }
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getIcon() {
+    public String getIcon() {
         return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
     }
 
     public int getCount() {
         return count;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public void setCount(int count) {

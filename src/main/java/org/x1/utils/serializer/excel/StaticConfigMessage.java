@@ -18,7 +18,9 @@ public class StaticConfigMessage {
     public static StaticConfigMessage getInstance(){
         return SpringUtils.getBean(StaticConfigMessage.class);
     }
-
+    public Map<Class<?>,Map<Serializable,Object>> getmap(){
+        return allData;
+    }
     /**
      * 添加导表数据
      * @param clazz

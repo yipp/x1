@@ -1,6 +1,7 @@
 package org.x1.utils.net.logic;
 
 import io.netty.channel.Channel;
+import org.x1.utils.net.manager.MessageOutManager;
 import org.x1.utils.net.model.ISerializer;
 import org.x1.player.data.CorePlayer;
 import org.x1.utils.net.model.Response;
@@ -51,12 +52,16 @@ public abstract class ProtocolLogicAdapter<T extends ISerializer> implements Pro
     @Override
     public void run() {
         executor();
+        sendSucceedCode();
     }
+    private boolean isSend = false;
     protected void response(ISerializer serializer){
-        Response response = new Response();
-        response.setId(this.id);
-        byte[] bytes = SerializerUtils.serializer(serializer);
-        response.setData(bytes);
-        ctx.writeAndFlush(response);
+        MessageOutManager.getInstance().send(id,ctx,serializer);
+        isSend = true;
+    }
+    private void sendSucceedCode(){
+        if(!isSend) return;
+        MessageOutManager.getInstance().send(id,ctx,null);
+        isSend = false;
     }
 }

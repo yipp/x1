@@ -17,7 +17,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-@Service
 public class ExcelUtils {
     /**
      *
@@ -41,7 +40,6 @@ public class ExcelUtils {
         }
         return fileMap;
     }
-    @PostConstruct
     public static void init() {
         Map<String,String> fileMap = getFileName("src/main/resources/excel");
         for (Map.Entry<String,String> entry:fileMap.entrySet()){
@@ -57,25 +55,16 @@ public class ExcelUtils {
         Workbook book = null;
         FileInputStream fis = null;
         try {
-            logger.info("开始读取" + fileName + "文件的内容");
             fis = new FileInputStream(fileName);//取到文件
             book = new XSSFWorkbook(fis);
             fis.close();//及时关闭流
-            logger.info("开始读取" + fileName + "工作谱的内容");
             Sheet sheet = book.getSheetAt(0);//取到工作谱（每一页是一个工作谱）
             Iterator<Row> rows = sheet.iterator();
             List<String> obj = null;
-            logger.info("开始读取" + fileName + "行的内容");
-            int i = 0;
             while (rows.hasNext()) {
-                if(i == 0 || i == 3) {
-                    ++i;
-                    continue;
-                }
                 Row row = rows.next();
                 Iterator<Cell> cells = row.iterator();
                 obj = new ArrayList<String>();
-                logger.info("开始读取" + fileName + "列的内容");
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
                     switch (cell.getCellType()) {   //根据cell中的类型来输出数据
@@ -86,7 +75,6 @@ public class ExcelUtils {
                     obj.add(cell.getStringCellValue());
                 }
                 objs.add(obj);
-                ++i;
             }
             serializerFile(objs, beanName);
         } catch (Exception e) {
@@ -95,7 +83,7 @@ public class ExcelUtils {
             try {
                 book.close();
             } catch (Exception e) {
-                logger.error(e);
+                e.printStackTrace();
             }
         }
     }
@@ -103,10 +91,10 @@ public class ExcelUtils {
     private static void serializerFile(List<List<String>> file, String beanName) {
         List<Map<String, String>> objMap = new ArrayList<>();
         Map<String, String> objs;
-        for (int i = 1; i < file.size(); i++) {
+        for (int i = 3; i < file.size(); i++) {
             objs = new HashMap<>();
             for (int j = 0; j < file.get(i).size(); j++) {
-                objs.put(file.get(0).get(j), file.get(i).get(j));
+                objs.put(file.get(1).get(j), file.get(i).get(j));
             }
             objMap.add(objs);
         }
@@ -199,25 +187,22 @@ public class ExcelUtils {
             clazz = Class.forName(clazzName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            logger.error("-------找不到-------" + clazzName+e);
-        }
-
-        try {
-            beanObj = clazz.newInstance();
-        } catch (Exception e) {
-            logger.error("反射异常"+clazzName);
-            e.printStackTrace();
         }
         for (int i = 0; i < objs.size(); i++) {
             try {
+                beanObj = clazz.newInstance();
                 BeanUtils.populate(beanObj,objs.get(i));
                 beanMap.put(((DataTableMessage)beanObj).id(),beanObj);
             } catch (Exception e) {
-                logger.error("对象复制错误"+beanObj.getClass());
                 e.printStackTrace();
             }
         }
         //添加到所有导表缓存类中
         StaticConfigMessage.getInstance().put(beanObj.getClass(),beanMap);
     }
+
+//    public static void main(String[] args) {
+//        init();
+//        Map m = StaticConfigMessage.getInstance().getmap();
+//    }
 }  

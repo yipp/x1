@@ -14,12 +14,14 @@ import org.x1.utils.SpringUtils;
 public class PersistActivity extends PersistJson<ActivityMapper> {
     /**是否已经领取*/
     private boolean draw;
-
+    /**领取时间*/
+    private int getTime;
     public PersistActivity() {
     }
 
-    public PersistActivity(boolean draw) {
+    public PersistActivity(boolean draw, int getTime) {
         this.draw = draw;
+        this.getTime = getTime;
     }
 
     public boolean isDraw() {
@@ -30,9 +32,17 @@ public class PersistActivity extends PersistJson<ActivityMapper> {
         this.draw = draw;
     }
 
+    public int getGetTime() {
+        return getTime;
+    }
+
+    public void setGetTime(int getTime) {
+        this.getTime = getTime;
+    }
+
     @Override
-    public boolean update() {
-     /**更新角色信息*/
+    public boolean executorUpdate() {
+        /**更新角色信息*/
         String activty = JSON.toJSONString(this);
         PlayerModel model = new PlayerModel();
         model.setActivity(activty);
